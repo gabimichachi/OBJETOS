@@ -34,7 +34,9 @@ const quadrado2 = {
 };
 
 // forma reduzida
-const quadrado3 ={
+const lados = 10;
+
+const quadrado3 = {
     lados: 4,
     area(lado) {
         return lado * lado
@@ -46,3 +48,30 @@ const quadrado3 ={
 };
 
 quadrado.cor = ' #FF69B4';
+
+console.log(quadrado2.perimetro(5))
+
+
+// 01- criar um objeto senai
+// 02- acessar dados da chave
+// 03- incrementar dados/alterar o objeto
+// 04- excluir um valor do objeto
+
+const senai = {
+    codigo: 603,
+    cidade: 'araraquara'
+};
+console.log('---------------------------')
+
+
+senai.telefone = 16997342867
+senai.rua = 'hugo negrini'
+senai.telefone = 13998765432
+delete senai.rua;
+
+senai.endereco = {rua: 'hugo negrini', bairro: 'quintandinha', numero: '67'};
+senai.alunos = ['SESI', 'EEBA', 'comunidade'];
+
+senai.endereco.numero = 62;
+senai.alunos[2] = 'tecnico';
+console.log(senai);

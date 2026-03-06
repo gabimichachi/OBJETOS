@@ -10,6 +10,8 @@ const soma = somar()
 // parametros para o calculo
 function somar(v1, v2){
     const resultado = v1 +
+
+    
 }
 
 // 01. crie uma função que retorne a porcentagem de um valor
