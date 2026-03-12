@@ -5,7 +5,7 @@ class Senai {
     // dentro de uma classe não precisa da palavra function
 
     descreverEscola() {
-        console.log(`o código ${this.codigo} pertence a escola`)
+        console.log(`o código ${this.codigo} pertence a Escola SENAI de ${this.cidade}.`)
     }
 }
 
@@ -25,3 +25,5 @@ senaiMat.rua = 'rua das flores'
 // exibindo os dados no console
 senaiArqa.descreverEscola();
 senaiMat.descreverEscola();
+
+console.log(senaiArqa);

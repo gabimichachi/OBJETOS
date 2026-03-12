@@ -1,11 +1,23 @@
 // classe é uma definição. como um objeto deve ser
 class Senai {
-    codigo;
-    cidade;
-    // dentro de uma classe nao precisa da palavra function
+    constructor(codigo, cidade) {
+        this.codigo = codigo;
+        this.cidade = cidade;
+    }
 
-    // serve como um molde para construir novos objetos com 
-    //  e comportamentos especificos
-    // sempre que um objeto é instaciadp ele passa pelo cons
+    // método para exibir as informações formatadas
+    dadosEscola() {
+        console.log(`unidade: ${this.cidade} | código interno: ${this.codigo}`);
+    }
 
 }
+
+// a criação agora é feota em apenas uma linha, passando os valores como argumento para o construtor.
+
+const escolaA = new Senai(603, 'araraquara');
+const escolaB = new Senai(145, 'são carlos');
+const escolaC = new Senai(545, 'américo brasiliense');
+
+escolaA.dadosEscola();
+escolaB.dadosEscola();
+escolaC.dadosEscola();
