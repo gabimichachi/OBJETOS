@@ -1,6 +1,13 @@
 /* Seleciona os elementos do DOM usando o método querySelector, que retorna o primeiro elemento 
 que corresponde ao seletor CSS especificado */
-
+const sliderElement = document.querySelector('.app-pwd__slider'); //elemento do controle deslizante
+const buttonElement = document.querySelector('.app-pwd__btn-button'); //botão de gerar senha
+const clearButton = document.querySelector('.app-pwd__button--clear'); //botão para limpar o histórico de senhas
+const sizePassaword = document.querySelector('.app-pwd__size'); //elemento que mostra o tamanho da senha
+const password = document.querySelector('.app-pwd__output'); //elemento que exibe a senha gerada
+const containerPassword = document.querySelector('.app-pwd__result'); //container da senha gerada
+const welcomeElement = document.querySelector('.app-pwd__welcome'); //elemento de saudação
+const dateTimeElement = document.querySelector('.app-pwd__datetime'); //elemento de data e hora
 
 // Elemento do controle deslizante
 // Botão de gerar senha
