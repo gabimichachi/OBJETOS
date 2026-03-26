@@ -56,6 +56,29 @@ const atualizarValorSlider = () => {
     // ou seja: atualiza o número que aparece na tela
 };
 
+const validarIntervalo = () => { 
+    const min = Number(sliderMin.value);
+    const max = Number(sliderMax.value);
+
+    if (min > max) {
+        sliderMin.value = max;
+        mensagem.textContent = 'o valor mínimo não pode ser maior que o valor máximo';
+    } else if (max < min) {
+        sliderMax.value = min;
+        mensagem.textContent = 'o valor máximo não pode ser menor que o valor mínimo';
+    } else {
+        mensagem.textContent = '';
+    }
+    
+    atualizarValorSlider();
+};
+
+// evento para atualizar o valor em tempo real
+sliderMin.addEventListener('input', validarIntervalo);
+sliderMax.addEventListener('input', validarIntervalo);
+
+atualizarValorSlider(); // atualiza a tela logo no começo com os valores atuais dos sliders
+
 // função para gerar um número aleatório 
 const gerarNumeroAleatorio = (min, max) => {
     // gera um número aleatório inteiro entre min e max
@@ -81,7 +104,7 @@ const criarItemHistorico = (numero) => {
 
     // quando clicar no número...
     li.addEventListener('click', () => {
-        // copia o número para a área de transferência (ctrl+c automático)
+        // copia o número para a área de transferência 
         navigator.clipboard.writeText(numero);
     });
 
@@ -95,10 +118,10 @@ const atualizaHistorico = (lista, item, limite) => {
     lista.prepend(item);
 
     // se passar do limite
-    if (lista.children.length > limite) {
+    if (lista.children.length>limite) {
         // remove o último item da lista
         lista.removeChild(lista.lastChild);
-    }
+    };
 };
 
 // função para limpar o histórico
@@ -183,3 +206,5 @@ sliderMax.addEventListener('input', atualizarValorSlider);
 
 // inicializar interface com os valores atuais
 atualizarValorSlider(); // atualiza a tela logo no começo com os valores atuais dos sliders
+
+
