@@ -1,31 +1,36 @@
 /* Seleciona os elementos do DOM usando o método querySelector, que retorna o primeiro elemento 
 que corresponde ao seletor CSS especificado */
-const sliderElement = document.querySelector('.app-pwd__slider'); //elemento do controle deslizante
-const buttonElement = document.querySelector('.app-pwd__btn-button'); //botão de gerar senha
-const clearButton = document.querySelector('.app-pwd__button--clear'); //botão para limpar o histórico de senhas
-const sizePassaword = document.querySelector('.app-pwd__size'); //elemento que mostra o tamanho da senha
-const password = document.querySelector('.app-pwd__output'); //elemento que exibe a senha gerada
-const containerPassword = document.querySelector('.app-pwd__result'); //container da senha gerada
-const welcomeElement = document.querySelector('.app-pwd__welcome'); //elemento de saudação
-const dateTimeElement = document.querySelector('.app-pwd__datetime'); //elemento de data e hora
 
-// Elemento do controle deslizante
-// Botão de gerar senha
-//Botão para limpar o histórico de senhas
-// Elemento que mostra o tamanho da senha
-// Elemento que exibe a senha gerada
-// Container da senha gerada
-// Elemento de saudação
-// Elemento de data e hora
 
+const sliderElement = document.querySelector('.app-pwd__slider'); // Elemento do controle deslizante
+const buttonElement = document.querySelector('.app-pwd__button'); // Botão de gerar senha
+const clearButton = document.querySelector('.app-pwd__button--clear'); //Botão para limpar o histórico de senhas
+const sizePassword = document.querySelector('.app-pwd__size');      // Elemento que mostra o tamanho da senha
+const password = document.querySelector('.app-pwd__output');      // Elemento que exibe a senha gerada
+const containerPassword = document.querySelector('.app-pwd__result'); // Container da senha gerada
+const welcomeElement = document.querySelector('.app-pwd__welcome'); // Elemento de saudação
+const datetimeElement = document.querySelector('.app-pwd__datetime'); // Elemento de data e hora
 
 /* Objeto que contém os conjuntos de caracteres possíveis para a geração de senha
+cada propriedade representa um tipo diferente de caractere */
+const charsets = {
+  uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', // Letras maiúsculas
+  lowercase: 'abcdefghijklmnopqrstuvwxyz', // Letras minúsculas
+  numbers: '0123456789',                   // Números
+  special: '!@#$%^&*'                     // Caracteres especiais
+}
 
 
 /* Variáveis para armazenar a senha atual e o histórico de senhas */
+let novaSenha = '';       // armazena a senha atual gerada
+let historicoSenhas = []; // array para armazenar as últimas 3 senhas geradas
 
 
 /* Função que retorna uma saudação baseada na hora atual do dia
+utiliza metodo getHours() do objeto Date para obter a j=hora atual (0-23) */
+const getSaudacao = () => {
+
+    const hora = new Date().getHours();
 
 
   /**
@@ -35,20 +40,40 @@ const dateTimeElement = document.querySelector('.app-pwd__datetime'); //elemento
    * 18:00 - 23:59 -> Boa noite
    */
 
+    if (hora < 12) return 'bom dia';
+    if (hora < 18) return 'boa tarde';
+    return 'boa noite';
+};
 
 
 /* Função que formata a data e hora atual em um formato legível
 Utiliza vários métodos do objeto Date para obter os componentes da data */
+const formatarDataHora = () => {
 
-/** Cria um objeto com a data e hora atual */
+  // cria um objeto com a data e hora atual
+  const agora = new Date();
+  console.log(agora);
 
 
-/** Array com os nomes dos dias da semana */
+  // Array com os nomes os dias da semana
+  const diasSemana = [
+    'domingo',
+    'segunda-feira',
+    'terça-feira',
+    'quarta-feira',
+    'quinta-feira',
+    'sexta-feira',
+    'sábado'
+  ];};
 
 /** Obtém o dia da semana */
+const diaSemana = diasSemana[agora.getDay()]; 
 
 
 /** Dados da data */
+const dia = agora.getDate().toString().padStart(2, '0'); 
+const mes = (agora.getMonth() + 1).toString().padStart(2, '0');
+const ano = agora.getFullYear();
 
 
 /**
@@ -56,9 +81,13 @@ Utiliza vários métodos do objeto Date para obter os componentes da data */
  * Aqui usamos apenas para formatação
  */
 
+const hora = agora.getHours().toString().padStart(2, '0');
+const minutos = agora.getMinutes().toString().padStart(2, '0');
+const segundo = agora.getSeconds().toString().padStart(2, '0');
+
 
 /** Retorna apenas a data e hora (sem saudação) */
-
+return `${diaSemana}, ${dia}/${mes}/${ano} - ${hora}:${minutos}:${segundo}`;
 
 
 /* Função que atualiza o cabeçalho com a saudação e a data/hora atual */
