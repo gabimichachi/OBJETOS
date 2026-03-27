@@ -18,7 +18,9 @@ const charsets = {
   lowercase: 'abcdefghijklmnopqrstuvwxyz', // letras minúsculas
   numbers: '0123456789',                   // números
   special: '!@#$%^&*'                     // caracteres especiais
-}
+};
+
+
 
 
 /* Variáveis para armazenar a senha atual e o histórico de senhas */
@@ -31,7 +33,6 @@ utiliza metodo getHours() do objeto Date para obter a j=hora atual (0-23) */
 const getSaudacao = () => {
 
     const hora = new Date().getHours();
-
 
   /**
    * Regras da saudação:
@@ -95,8 +96,6 @@ sliderElement.addEventListener('input', (e) => {
   sizePassword.textContent = e.target.value;
 });
 
-/* Função principal para gerar a senha */
-const generatePassword = () => {}
 
 /* Função para copiar a senha gerada para a área de transferência */
 const copyPassword = () => {
@@ -135,59 +134,132 @@ const clearData = () => {
 // Adicionar o event listener para o botão de limpar
 clearButton.addEventListener('click', clearData);
 
+// Função principal para gerar a senha //
+const generatePassword = () => {}
+  
+  let selectedCharsets = ''; //string que armazenará todos os caracteres possíveis para a senha
 
+// String que armazenará todos os caracteres possíveis para a senha //
 
-// String que armazenará todos os caracteres possíveis para a senha
+ /* Obter os checkboxes selecionados */
+const uppercaseChecked = document.querySelector('.uppercase-check').checked;
+const lowercaseChecked = document.querySelector('.lowercase-check').checked;
+const numbersChecked = document.querySelector('.numbers-check').checked;
+const specialChecked = document.querySelector('.special-check').checked;
 
-  /* Obter os checkboxes selecionados */
+/* Construir o charset baseado nas opções selecionadas */
+if (uppercaseChecked) selectedCharsets += charsets.uppercase;
+if (lowercaseChecked) selectedCharsets += charsets.lowercase;
+if (numbersChecked) selectedCharsets += charsets.numbers;
+if (specialChecked) selectedCharsets += charsets.special;
 
-
-
-
-  /* Construir o charset baseado nas opções selecionadas */
- 
-
-  /* Se nenhuma opção estiver selecionada, selecionar todas */
- 
+ /* Se nenhuma opção estiver selecionada, selecionar todas */
+if (!selectedCharsets) {
+  selectedCharsets =  Object.values(charsets).join('');
+  console.log(selectedCharsets);
+  document.querySelector('.uppercase-check').checked = true;
+  document.querySelector('.lowercase-check').checked = true;
+  document.querySelector('.numbers-check').checked = true;
+  document.querySelector('.special-check').checked = true;
+}
 
   // Inicializa uma string vazia para armazenar a senha gerada
- 
+  let pass = '';
 
-
-  /* Loop que itera pelo número de caracteres definido no slider
+   /* Loop que itera pelo número de caracteres definido no slider
  Usa o operador de incremento (++) para aumentar o contador */
 
-  
-    /* Adiciona um caractere aleatório à senha:
+  for (let i = 0; i < sliderElement.value; i++) {
+  /* Adiciona um caractere aleatório à senha:
     1. Math.random() gera um número decimal entre 0 e 1
     2. Multiplicado pelo comprimento do charset para obter um índice válido
     3. Math.floor() arredonda para baixo para obter um índice inteiro
     4. charAt() retorna o caractere na posição do índice calculado */
 
-  
+    pass += selectedCharsets.charAt(Math.floor(Math.random() * selectedCharsets.length));
+  }
+
   /* Remove a classe 'hide' para exibir o container da senha */
-  
+  containerPassword.classList.remove('hide');
 
-  /* Insere a senha gerada no elemento HTML */
+   /* Insere a senha gerada no elemento HTML */
+   password.textContent = pass;
 
- 
-  /*  Armazena a senha atual na variável global para uso posterior (ex: copiar) */
-  
-  /* Gerenciamento do histórico de senhas:
+   /*  Armazena a senha atual na variável global para uso posterior (ex: copiar) */
+  novaSenha = pass;
+
+    /* Gerenciamento do histórico de senhas:
   unshift() adiciona a nova senha no início do array */
- 
+  historicoSenhas.unshift(pass);
 
-  /*  Limita o histórico a 3 senhas:
+   /*  Limita o histórico a 3 senhas:
   Se o array tiver mais de 3 itens, pop() remove o último */
- 
-  /* Atualizar a lista de histórico na interface: */
- 
-    /* Remover a classe 'hide' para exibir o histórico */
-    
+
+  if (historicoSenhas.length > 3) {
+    historicoSenhas.pop();
+  }
+
+   /* Atualizar a lista de histórico na interface: */
+   const historico = document.querySelector('.app-pwd__history');
+   if (historico) {
+
+     /* Remover a classe 'hide' para exibir o histórico */
+    historico.computedStyleMap.display = 'block';
 
     /* Cria elementos <li> para cada senha no histórico:
     1. map() transforma cada senha em um elemento HTML
     2. join('') concatena todos os elementos em uma única string */
+
+    historico.querySelector('.app-pwd__history-list').innerHTML = historicoSenhas
+      .map(senha => `<li class="app-pwd__history-item">${senha}</li>`)
+      .join('');
+
+   }
+
+
+
+
+ 
+
+
+
+
+  
+ 
+
+ 
+ 
+
+  
+ 
+
+
+ 
+
+  
+    
+
+  
+  
+  
+
+ 
+
+ 
+  
+  
+
+ 
+
+ 
+ 
+ 
+ 
+   
+    
+
+    
+    
 
   
 
