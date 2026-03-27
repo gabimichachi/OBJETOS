@@ -1,20 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffd1; 
+  background-image: radial-gradient(#ffdef2 2px, #ffffd1 2px);
+  background-size: 25px 25px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 :root {
-  --color-primary: #FFF4A3;
-  --color-secondary: #F9E076;
-  --color-text: #6B4423;
-  --color-area-sorteio: #FEFDF3;
-  --color-text-dark: #6B4423;
-  --color-button: #FEFDF3;
-  --color-button-bg: #6B4423;
-  --color-button-hover: #8B5A2B;
-  --color-numero-sorteado-bg: #F9E076;
-  --color-historico-hover: #FFF4A3;
+  --color-primary: #ffffd1;
+  --color-secondary: #ffdef2;
+  --color-text: #6d5d6e;
+  --color-area-sorteio: #ffffff;
+  --color-text-dark: #6d5d6e;
+  --color-button: #ffffff;
+  --color-button-bg: #f2a2c0;
+  --color-button-hover: #f592bf;
+  --color-numero-sorteado-bg: #ffdef2;
+  --color-historico-hover: #ffffd1;
 }
 
 .sorteador {
-  background-color: var(--color-primary);
+  background-color: transparent;
   color: var(--color-text);
-  font-family: 'Quicksand', Verdana, sans-serif;
+  font-family: 'Pangolin', cursive;
 }
 
 .sorteador__header {
@@ -36,7 +50,7 @@
   padding: 16px;
   margin: 8px;
   border-radius: 20px;
-  border: 2px solid var(--color-text);
+  border: 2px solid var(--color-secondary);
 }
 
 .sorteador__intervalo,
@@ -95,7 +109,7 @@
   background-color: var(--color-numero-sorteado-bg);
   width: 150px;
   text-align: center;
-  border: dashed 3px var(--color-text);
+  border: dashed 3px var(--color-button-bg);
   border-radius: 15px;
 }
 
@@ -123,12 +137,12 @@ main {
   justify-content: space-between;
   align-items: center;
   background-color: var(--color-secondary);
-  border: 2px solid var(--color-text);
+  border: 2px solid var(--color-secondary);
 }
 
 .historico {
   text-align: center;
-  border: 2px solid var(--color-text);
+  border: 2px solid var(--color-secondary);
 }
 
 .historico h2 {
@@ -164,7 +178,7 @@ footer button {
   font-size: 16px;
   font-weight: bold;
   border-radius: 50px;
-  border: 2px solid var(--color-text);
+  border: 2px solid var(--color-secondary);
   background-color: var(--color-area-sorteio);
   color: var(--color-text);
   cursor: pointer;

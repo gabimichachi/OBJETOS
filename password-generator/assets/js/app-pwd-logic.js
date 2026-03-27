@@ -2,22 +2,22 @@
 que corresponde ao seletor CSS especificado */
 
 
-const sliderElement = document.querySelector('.app-pwd__slider'); // Elemento do controle deslizante
-const buttonElement = document.querySelector('.app-pwd__button'); // Botão de gerar senha
-const clearButton = document.querySelector('.app-pwd__button--clear'); //Botão para limpar o histórico de senhas
-const sizePassword = document.querySelector('.app-pwd__size');      // Elemento que mostra o tamanho da senha
-const password = document.querySelector('.app-pwd__output');      // Elemento que exibe a senha gerada
-const containerPassword = document.querySelector('.app-pwd__result'); // Container da senha gerada
-const welcomeElement = document.querySelector('.app-pwd__welcome'); // Elemento de saudação
-const datetimeElement = document.querySelector('.app-pwd__datetime'); // Elemento de data e hora
+const sliderElement = document.querySelector('.app-pwd__slider'); // elemento do controle deslizante
+const buttonElement = document.querySelector('.app-pwd__button'); // botão de gerar senha
+const clearButton = document.querySelector('.app-pwd__button--clear'); //botão para limpar o histórico de senhas
+const sizePassword = document.querySelector('.app-pwd__size');      // elemento que mostra o tamanho da senha
+const password = document.querySelector('.app-pwd__output');      // elemento que exibe a senha gerada
+const containerPassword = document.querySelector('.app-pwd__result'); // container da senha gerada
+const welcomeElement = document.querySelector('.app-pwd__welcome'); // elemento de saudação
+const datetimeElement = document.querySelector('.app-pwd__datetime'); // elemento de data e hora
 
 /* Objeto que contém os conjuntos de caracteres possíveis para a geração de senha
 cada propriedade representa um tipo diferente de caractere */
 const charsets = {
-  uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', // Letras maiúsculas
-  lowercase: 'abcdefghijklmnopqrstuvwxyz', // Letras minúsculas
-  numbers: '0123456789',                   // Números
-  special: '!@#$%^&*'                     // Caracteres especiais
+  uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', // letras maiúsculas
+  lowercase: 'abcdefghijklmnopqrstuvwxyz', // letras minúsculas
+  numbers: '0123456789',                   // números
+  special: '!@#$%^&*'                     // caracteres especiais
 }
 
 
@@ -46,16 +46,10 @@ const getSaudacao = () => {
 };
 
 
-/* Função que formata a data e hora atual em um formato legível
-Utiliza vários métodos do objeto Date para obter os componentes da data */
 const formatarDataHora = () => {
 
-  // cria um objeto com a data e hora atual
   const agora = new Date();
-  console.log(agora);
 
-
-  // Array com os nomes os dias da semana
   const diasSemana = [
     'domingo',
     'segunda-feira',
@@ -64,47 +58,84 @@ const formatarDataHora = () => {
     'quinta-feira',
     'sexta-feira',
     'sábado'
-  ];};
+  ];
 
-/** Obtém o dia da semana */
-const diaSemana = diasSemana[agora.getDay()]; 
+  const diaSemana = diasSemana[agora.getDay()];
 
+  const dia = agora.getDate().toString().padStart(2, '0'); 
+  const mes = (agora.getMonth() + 1).toString().padStart(2, '0');
+  const ano = agora.getFullYear();
 
-/** Dados da data */
-const dia = agora.getDate().toString().padStart(2, '0'); 
-const mes = (agora.getMonth() + 1).toString().padStart(2, '0');
-const ano = agora.getFullYear();
+  const hora = agora.getHours().toString().padStart(2, '0');
+  const minutos = agora.getMinutes().toString().padStart(2, '0');
+  const segundo = agora.getSeconds().toString().padStart(2, '0');
 
-
-/**
- * Hora como número (para lógica, se necessário no futuro)
- * Aqui usamos apenas para formatação
- */
-
-const hora = agora.getHours().toString().padStart(2, '0');
-const minutos = agora.getMinutes().toString().padStart(2, '0');
-const segundo = agora.getSeconds().toString().padStart(2, '0');
-
-
-/** Retorna apenas a data e hora (sem saudação) */
-return `${diaSemana}, ${dia}/${mes}/${ano} - ${hora}:${minutos}:${segundo}`;
+  return `${diaSemana}, ${dia}/${mes}/${ano} - ${hora}:${minutos}:${segundo}`;
+};
 
 
 /* Função que atualiza o cabeçalho com a saudação e a data/hora atual */
+const atualizarHeader = () => { 
+  welcomeElement.textContent = `${getSaudacao()}!`;
+  datetimeElement.textContent = formatarDataHora();
+
+};
 
 /* Atualizar header a cada segundo */
-
+setInterval(atualizarHeader, 1000);
 
 /* Inicializar header */
-
+atualizarHeader();
 
 /* Exibe inicialmente o valor do slider*/
-
+sizePassword.textContent = sliderElement.value;
 
 /* Atualiza o valor exibido do tamanho da senha conforme o slider é movimentado */
-
+sliderElement.addEventListener('input', (e) => {
+  sizePassword.textContent = e.target.value;
+});
 
 /* Função principal para gerar a senha */
+const generatePassword = () => {}
+
+/* Função para copiar a senha gerada para a área de transferência */
+const copyPassword = () => {
+  alert('senha copiada com sucesso!'); //exibe um alerta de sucesso
+  navigator.clipboard.writeText(novaSenha); //copia a senha usando a API Clipboard
+}
+
+// Adicionar os event Listeners para os eventos de clique//
+buttonElement.addEventListener('click', generatePassword); //gera nova senha
+containerPassword.addEventListener('click', copyPassword); // copia a senha
+
+/* Função para limpar os dados e esconder os containers */
+const clearData = () => {
+  // limpa o histórico de senhas
+  historicoSenhas = [];
+  novaSenha = '';
+
+  // esconder os containers
+  containerPassword.classList.add('hide');
+  const historico = document.querySelector('.app-pwd__history');
+  if (historico) {
+    historico.classList.add('hide');
+  }
+
+  // reseta os checkboxes para o estado inicial (marcados)
+  document.querySelector('.uppercase-check').checked = true;
+  document.querySelector('.lowercase-check').checked = true;
+  document.querySelector('.numbers-check').checked = true;
+  document.querySelector('.special-check').checked = true;
+
+  // reseta o slider para o valor incial //
+  sliderElement.value = 8;
+  sizePassword.textContent = '8';
+};
+
+// Adicionar o event listener para o botão de limpar
+clearButton.addEventListener('click', clearData);
+
+
 
 // String que armazenará todos os caracteres possíveis para a senha
 
@@ -160,7 +191,7 @@ return `${diaSemana}, ${dia}/${mes}/${ano} - ${hora}:${minutos}:${segundo}`;
 
   
 
-/* Função para copiar a senha gerada para a área de transferência */
+
 
   // Exibe um alerta de sucesso
  // Copia a senha usando a API Clipboard
@@ -170,7 +201,7 @@ return `${diaSemana}, ${dia}/${mes}/${ano} - ${hora}:${minutos}:${segundo}`;
  // Gera nova senha
   // Copia a senha
 
-/* Função para limpar os dados e esconder os containers */
+
 
   // Limpa o histórico de senhas
  
